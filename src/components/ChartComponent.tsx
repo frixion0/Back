@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { createChart, IChartApi, ISeriesApi, LineStyle, UTCTimestamp } from 'lightweight-charts';
+import { createChart, IChartApi, ISeriesApi, LineStyle, UTCTimestamp, CandlestickSeries, LineSeries, HistogramSeries } from 'lightweight-charts';
 import { Candle, Trade } from '../types';
 
 interface ChartComponentProps {
@@ -64,7 +64,7 @@ export const ChartComponent: React.FC<ChartComponentProps> = ({
     }) as any;
     mainChartRef.current = mainChart;
 
-    const candlestickSeries = mainChart.addCandlestickSeries({
+    const candlestickSeries = mainChart.addSeries(CandlestickSeries, {
       upColor: '#22c55e',
       downColor: '#ef4444',
       borderVisible: false,
@@ -96,7 +96,7 @@ export const ChartComponent: React.FC<ChartComponentProps> = ({
     let smaLongSeries: ISeriesApi<'Line'> | null = null;
 
     if (activeIndicators.sma) {
-      smaShortSeries = mainChart.addLineSeries({
+      smaShortSeries = mainChart.addSeries(LineSeries, {
         color: '#3b82f6', // blue
         lineWidth: 1.5,
         title: 'SMA Short',
@@ -109,7 +109,7 @@ export const ChartComponent: React.FC<ChartComponentProps> = ({
         }));
       smaShortSeries.setData(smaShortData);
 
-      smaLongSeries = mainChart.addLineSeries({
+      smaLongSeries = mainChart.addSeries(LineSeries, {
         color: '#f59e0b', // amber
         lineWidth: 1.5,
         title: 'SMA Long',
@@ -129,7 +129,7 @@ export const ChartComponent: React.FC<ChartComponentProps> = ({
     let bbLowerSeries: ISeriesApi<'Line'> | null = null;
 
     if (activeIndicators.bb) {
-      bbUpperSeries = mainChart.addLineSeries({
+      bbUpperSeries = mainChart.addSeries(LineSeries, {
         color: 'rgba(168, 85, 247, 0.6)', // purple transparent
         lineWidth: 1,
         lineStyle: LineStyle.Dashed,
@@ -143,7 +143,7 @@ export const ChartComponent: React.FC<ChartComponentProps> = ({
         }));
       bbUpperSeries.setData(bbUpperData);
 
-      bbMiddleSeries = mainChart.addLineSeries({
+      bbMiddleSeries = mainChart.addSeries(LineSeries, {
         color: 'rgba(168, 85, 247, 0.4)',
         lineWidth: 1,
         title: 'BB Basis',
@@ -156,7 +156,7 @@ export const ChartComponent: React.FC<ChartComponentProps> = ({
         }));
       bbMiddleSeries.setData(bbMiddleData);
 
-      bbLowerSeries = mainChart.addLineSeries({
+      bbLowerSeries = mainChart.addSeries(LineSeries, {
         color: 'rgba(168, 85, 247, 0.6)',
         lineWidth: 1,
         lineStyle: LineStyle.Dashed,
@@ -220,7 +220,7 @@ export const ChartComponent: React.FC<ChartComponentProps> = ({
       }) as any;
       rsiChartRef.current = rsiChart;
 
-      const rsiSeries = rsiChart.addLineSeries({
+      const rsiSeries = rsiChart.addSeries(LineSeries, {
         color: '#bfdbfe', // light blue
         lineWidth: 1.5,
         title: 'RSI',
@@ -235,14 +235,14 @@ export const ChartComponent: React.FC<ChartComponentProps> = ({
       rsiSeries.setData(rsiData);
 
       // Draw horizontal lines at 30 and 70
-      const limit30 = rsiChart.addLineSeries({
+      const limit30 = rsiChart.addSeries(LineSeries, {
         color: 'rgba(239, 68, 68, 0.4)', // red
         lineWidth: 1,
         lineStyle: LineStyle.Dashed,
       });
       limit30.setData(chartCandleData.map(c => ({ time: c.time, value: 30 })));
 
-      const limit70 = rsiChart.addLineSeries({
+      const limit70 = rsiChart.addSeries(LineSeries, {
         color: 'rgba(239, 68, 68, 0.4)', // red
         lineWidth: 1,
         lineStyle: LineStyle.Dashed,
@@ -260,7 +260,7 @@ export const ChartComponent: React.FC<ChartComponentProps> = ({
       }) as any;
       macdChartRef.current = macdChart;
 
-      const macdLineSeries = macdChart.addLineSeries({
+      const macdLineSeries = macdChart.addSeries(LineSeries, {
         color: '#60a5fa', // blue MACD
         lineWidth: 1.5,
         title: 'MACD',
@@ -273,7 +273,7 @@ export const ChartComponent: React.FC<ChartComponentProps> = ({
         }));
       macdLineSeries.setData(validMacd);
 
-      const signalLineSeries = macdChart.addLineSeries({
+      const signalLineSeries = macdChart.addSeries(LineSeries, {
         color: '#f87171', // red signal
         lineWidth: 1.5,
         title: 'Signal',
@@ -286,7 +286,7 @@ export const ChartComponent: React.FC<ChartComponentProps> = ({
         }));
       signalLineSeries.setData(validSignal);
 
-      const histogramSeries = macdChart.addHistogramSeries({
+      const histogramSeries = macdChart.addSeries(HistogramSeries, {
         title: 'Histogram',
       });
       const validHist = uniqueCandlesArray
