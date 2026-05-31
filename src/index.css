@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0A0A0C;
+  --color-sidebar: #141417;
+  --color-border-dim: #26262C;
+  --color-accent-blue: #3B82F6;
+  --color-success-green: #22C55E;
+  --color-danger-red: #EF4444;
+  --color-text-dim: #71717A;
+  --color-text-bright: #E4E4E7;
+  
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
+}
+
+/* Custom terminal background styling */
+body {
+  background-color: #0A0A0C;
+  color: #E4E4E7;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}

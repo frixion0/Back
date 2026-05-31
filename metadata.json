@@ -1,0 +1,6 @@
+{
+  "name": "Crypto Backtesting Terminal",
+  "description": "Professional cryptocurrency strategy backtesting platform featuring LLM-driven prompt parsing, direct Binance data, and live TradingView analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
